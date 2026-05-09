@@ -454,6 +454,23 @@ Stretch:
 
 ---
 
+## Validation
+
+Code-level checks (type checking, unit tests) verify *correctness*, not *what the user sees*. Every visual feature in this plan — canvas, RunList, Flamegraph, Timeline live-tail, A2UI charts, openGenUI components — must be exercised end-to-end via the **Playwright CLI** before being marked done.
+
+**Process per phase:**
+
+1. Bring up the dev stack (`npm run dev`).
+2. Use Playwright CLI to drive the canvas: load the page, send a chat prompt to the Analyst, click into a trace, switch tabs, watch live-tail, etc.
+3. Capture screenshots at key states. Any visual delta from the expected behavior is a bug — file it before moving to the next phase.
+4. For Analyst-driven flows, prompt the chat with a known-good test prompt (e.g. *"show me the slowest tool in the last run"*) and verify the rendered chart / component matches the expected shape.
+
+**Why CLI not the in-IDE harness:** scriptable, reproducible across machines, runs in CI later if we want.
+
+**Bug log location:** open issues in this repo as they're found, prefixed `[playwright]`. Don't ship a phase with open `[playwright]` issues against it.
+
+---
+
 ## Out of Scope
 
 - Multi-tenant auth.
