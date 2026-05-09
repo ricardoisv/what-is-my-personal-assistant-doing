@@ -13,7 +13,7 @@ import { ThreadsDrawer } from "@/components/threads-drawer";
 import drawerStyles from "@/components/threads-drawer/threads-drawer.module.css";
 
 import { initialState, mergeAgentState } from "@/lib/traces/state";
-import { getRun, getTrace, listRuns } from "@/lib/traces/api";
+import { getRun, getTrace, listRuns, streamUrl } from "@/lib/traces/api";
 import type { AgentState, PinnedChart, Run, Span } from "@/lib/traces/types";
 
 import { RunList } from "@/components/traces/RunList";
@@ -85,22 +85,65 @@ function CanvasInner() {
   const [selectedSpanId, setSelectedSpanId] = useState<string | null>(null);
   const [view, setView] = useState<"timeline" | "flamegraph">("timeline");
 
-  // Initial fetch + 3s polling. Phase 6 swaps this for SSE live tail.
+  // Initial fetch + SSE live tail. Each span event triggers a debounced
+  // refetch of the run list (cheap — typical demo run is < 50 runs).
+  // We also append matching spans to the open trace if one is focused.
   useEffect(() => {
     let live = true;
-    const tick = async () => {
-      try {
-        const { runs } = await listRuns({ limit: 50 });
-        if (live) setRuns(runs);
-      } catch {
-        if (live) setRuns([]);
-      }
+    let refetchTimer: ReturnType<typeof setTimeout> | null = null;
+    const debouncedRefetch = () => {
+      if (refetchTimer) clearTimeout(refetchTimer);
+      refetchTimer = setTimeout(async () => {
+        try {
+          const { runs } = await listRuns({ limit: 50 });
+          if (live) setRuns(runs);
+        } catch {
+          /* ignore */
+        }
+      }, 200);
     };
-    tick();
-    const id = setInterval(tick, 3000);
+
+    // Initial fetch — without it, the canvas is blank until the first span.
+    debouncedRefetch();
+
+    let es: EventSource | null = null;
+    try {
+      es = new EventSource(streamUrl());
+      es.addEventListener("span", (e) => {
+        debouncedRefetch();
+        try {
+          const span = JSON.parse((e as MessageEvent).data) as Span;
+          // If the span belongs to whatever trace is currently displayed,
+          // append it in place — gives the timeline its live-tail feel.
+          // Use functional setState to avoid stale closure of traceSpans.
+          setTraceSpans((prev) => {
+            if (prev.length === 0) return prev;
+            const traceMatches = prev[0]?.trace_id === span.trace_id;
+            if (!traceMatches) return prev;
+            if (prev.find((p) => p.span_id === span.span_id)) return prev;
+            return [...prev, span];
+          });
+        } catch {
+          /* ignore malformed events */
+        }
+      });
+      es.addEventListener("error", () => {
+        // Silent — EventSource auto-reconnects. The debounced poll on
+        // `hello` events still drives initial state.
+      });
+    } catch {
+      // EventSource construction can fail in some environments; the
+      // initial fetch keeps the UI populated either way.
+    }
+
+    // Backup poll every 10s in case SSE is silently dead.
+    const id = setInterval(debouncedRefetch, 10_000);
+
     return () => {
       live = false;
+      if (refetchTimer) clearTimeout(refetchTimer);
       clearInterval(id);
+      es?.close();
     };
   }, []);
 

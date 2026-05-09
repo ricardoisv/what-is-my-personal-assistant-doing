@@ -1,4 +1,5 @@
 import type { PinnedChart } from "@/lib/traces/types";
+import { A2UIChart } from "./A2UIChart";
 
 type Props = {
   pinned: PinnedChart[];
@@ -53,13 +54,7 @@ function PinnedBody({ pinned }: { pinned: PinnedChart }) {
     );
   }
   if (pinned.kind === "a2ui") {
-    // A2UI rendering ships in phase 7. For now, dump the spec so the
-    // pin pipeline is testable end-to-end.
-    return (
-      <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded bg-zinc-950 p-2 font-mono text-[11px] text-zinc-300">
-        {JSON.stringify({ name: pinned.name, props: pinned.props }, null, 2)}
-      </pre>
-    );
+    return <A2UIChart name={pinned.name} props={pinned.props} />;
   }
   return (
     <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded bg-zinc-950 p-2 font-mono text-[11px] text-zinc-300">

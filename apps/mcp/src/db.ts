@@ -331,6 +331,33 @@ export type CompareRow = {
   delta_total_ns: number;
 };
 
+// ---------------------------------------------------------------- scores
+
+export type TraceScore = {
+  trace_id: string;
+  rubric: string;
+  score: number;
+  rationale: string | null;
+  judge_model: string | null;
+  created_ns: number;
+};
+
+export function writeTraceScore(s: TraceScore): void {
+  db()
+    .prepare(
+      `INSERT OR REPLACE INTO trace_scores
+       (trace_id, rubric, score, rationale, judge_model, created_ns)
+       VALUES (@trace_id, @rubric, @score, @rationale, @judge_model, @created_ns)`,
+    )
+    .run(s);
+}
+
+export function getTraceScores(trace_id: string): TraceScore[] {
+  return db()
+    .prepare(`SELECT * FROM trace_scores WHERE trace_id = ?`)
+    .all(trace_id) as TraceScore[];
+}
+
 export function compareRuns(run_a: string, run_b: string): CompareRow[] {
   const aRows = aggregate({ metric: "duration", group_by: "name", run_id: run_a });
   const bRows = aggregate({ metric: "duration", group_by: "name", run_id: run_b });

@@ -5,6 +5,7 @@ import { registerQuerySpans } from "./query_spans";
 import { registerGetTraceTree } from "./get_trace_tree";
 import { registerAggregate } from "./aggregate";
 import { registerCompareRuns } from "./compare_runs";
+import { registerJudgeTrace } from "./judge_trace";
 
 /**
  * Register every trace-MCP tool on the given server. Tools return JSON
@@ -18,4 +19,5 @@ export function registerTraceTools(server: MCPServer): void {
   registerGetTraceTree(server);
   registerAggregate(server);
   registerCompareRuns(server);
+  registerJudgeTrace(server);
 }
