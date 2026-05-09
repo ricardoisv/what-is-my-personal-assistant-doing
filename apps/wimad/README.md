@@ -31,7 +31,7 @@ def search_web(q: str) -> list[dict]:
     ...
 ```
 
-`configure()` is idempotent and reads `WIMAD_INGEST_URL` (default `http://localhost:3001/traces/ingest`).
+`configure()` is idempotent and reads `WIMAD_INGEST_URL` (default `http://localhost:3012/traces/ingest`).
 
 ## Use it to trace Hermes
 
@@ -54,7 +54,7 @@ The Hermes adapter emits under `hermes.*` (`hermes.workflow.run_conversation`, `
 
 | Var | Default | Purpose |
 |---|---|---|
-| `WIMAD_INGEST_URL` | `http://localhost:3001/traces/ingest` | Where to POST batched spans |
+| `WIMAD_INGEST_URL` | `http://localhost:3012/traces/ingest` | Where to POST batched spans |
 | `WIMAD_BATCH_SIZE` | `32` | Max spans per batch |
 | `WIMAD_BATCH_INTERVAL_MS` | `500` | Max ms between flushes |
 | `WIMAD_DEBUG` | unset | Log every span to stderr |

@@ -28,6 +28,11 @@ apps/mcp/.mcp-use/*
 # first read when Notion isn't configured). Per-checkout, never committed.
 apps/agent/data/leads.local.json
 
+# wimad SQLite trace store — recreated on every MCP server boot
+apps/mcp/traces.sqlite
+apps/mcp/traces.sqlite-wal
+apps/mcp/traces.sqlite-shm
+
 # Claude Code harness scaffolding (per-checkout, not for downstream teams)
 .claude/
 

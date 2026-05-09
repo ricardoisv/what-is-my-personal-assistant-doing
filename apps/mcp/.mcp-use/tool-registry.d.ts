@@ -1,31 +1,31 @@
 // Auto-generated tool registry types - DO NOT EDIT MANUALLY
 // This file is regenerated whenever tools are added, removed, or updated during development
-// Generated at: 2026-05-09T07:17:40.480Z
+// Generated at: 2026-05-09T23:14:20.449Z
 
 declare module "mcp-use/react" {
   interface ToolRegistry {
-    "post-email-comment": {
-      input: { "leadId": string; "subject": string; "body": string };
+    "aggregate": {
+      input: { "metric": "duration" | "count"; "group_by": "name" | "service_name" | "run_id" | "status_code"; "run_id"?: string | undefined; "service_name"?: string | undefined };
       output: Record<string, unknown>;
     };
-    "show-canvas-dashboard": {
-      input: { "leads": Array<{ "id": string; "name": string; "email": string; "company": string; "role": string; "workshop": string; "technical_level": string; "tools": Array<string>; "status": string; "opt_in": boolean }> };
+    "compare_runs": {
+      input: { "run_a": string; "run_b": string };
       output: Record<string, unknown>;
     };
-    "show-email-draft": {
-      input: { "leadId": string; "leadName"?: string | undefined; "leadEmail"?: string | undefined; "leadCompany"?: string | undefined; "leadRole"?: string | undefined; "subject": string; "body": string };
+    "get_run": {
+      input: { "run_id": string };
       output: Record<string, unknown>;
     };
-    "show-lead-demand": {
-      input: { "leads": Array<{ "id": string; "name": string; "email": string; "company": string; "role": string; "workshop": string; "technical_level": string; "tools": Array<string>; "status": string; "opt_in": boolean }> };
+    "get_trace_tree": {
+      input: { "trace_id": string };
       output: Record<string, unknown>;
     };
-    "show-lead-list": {
-      input: { "leads": Array<{ "id": string; "name": string; "email": string; "company": string; "role": string; "workshop": string; "technical_level": string; "tools": Array<string>; "status": string; "opt_in": boolean }>; "segments": Array<{ "id": string; "name": string; "color"?: "indigo" | "emerald" | "amber" | "rose" | "sky" | "violet" | "slate" | undefined; "leadIds": Array<string> }> };
+    "list_runs": {
+      input: { "limit": number | undefined; "status"?: "running" | "done" | "failed" | undefined };
       output: Record<string, unknown>;
     };
-    "show-lead-pipeline": {
-      input: { "leads": Array<{ "id": string; "name": string; "email": string; "company": string; "role": string; "workshop": string; "technical_level": string; "tools": Array<string>; "status": string; "opt_in": boolean }>; "segments": Array<{ "id": string; "name": string; "color"?: "indigo" | "emerald" | "amber" | "rose" | "sky" | "violet" | "slate" | undefined; "leadIds": Array<string> }> };
+    "query_spans": {
+      input: { "run_id"?: string | undefined; "trace_id"?: string | undefined; "name_prefix"?: string | undefined; "service_name"?: string | undefined; "status_code"?: "ok" | "error" | undefined; "limit": number | undefined };
       output: Record<string, unknown>;
     };
   }

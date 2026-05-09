@@ -2,7 +2,7 @@
   "name": "mcp",
   "type": "module",
   "version": "1.0.0",
-  "description": "Hackathon Starter Kit — Manufact MCP server",
+  "description": "wimad Trace MCP — read-plane MCP tools + HTTP ingest + SSE live-tail over a SQLite trace store",
   "author": "",
   "license": "MIT",
   "keywords": [
@@ -22,24 +22,21 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "mcp-use build",
-    "dev": "MCP_PORT=3011 mcp-use dev --port 3011",
-    "start": "MCP_PORT=3011 mcp-use start --port 3011",
+    "dev": "MCP_PORT=3011 TRACE_HTTP_PORT=3012 tsx --watch index.ts",
+    "start": "MCP_PORT=3011 TRACE_HTTP_PORT=3012 tsx index.ts",
     "deploy": "mcp-use deploy",
     "postinstall": "mcp-use generate-types || true"
   },
   "dependencies": {
-    "@openai/apps-sdk-ui": "^0.2.1",
+    "@hono/node-server": "^1.13.0",
+    "better-sqlite3": "^11.5.0",
+    "hono": "^4.6.0",
     "mcp-use": "latest",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-router": "^7.13.0",
-    "tailwindcss": "^4.2.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^25.3.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

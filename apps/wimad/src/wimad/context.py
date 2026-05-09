@@ -42,7 +42,7 @@ def configure(
     """Idempotently install the global tracer provider + HTTP exporter.
 
     Reads env vars when arguments aren't passed:
-      - WIMAD_INGEST_URL        (default http://localhost:3001/traces/ingest)
+      - WIMAD_INGEST_URL        (default http://localhost:3012/traces/ingest)
       - WIMAD_BATCH_SIZE        (default 32)
       - WIMAD_BATCH_INTERVAL_MS (default 500)
       - WIMAD_DEBUG             (any truthy value enables debug logging)
@@ -52,7 +52,7 @@ def configure(
         return
 
     ingest_url = ingest_url or os.getenv(
-        "WIMAD_INGEST_URL", "http://localhost:3001/traces/ingest"
+        "WIMAD_INGEST_URL", "http://localhost:3012/traces/ingest"
     )
     batch_size = batch_size or int(os.getenv("WIMAD_BATCH_SIZE", "32"))
     batch_interval_ms = batch_interval_ms or int(
