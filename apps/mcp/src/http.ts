@@ -2,7 +2,15 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { streamSSE } from "hono/streaming";
-import { ingestSpans, type IngestSpan } from "./db";
+import {
+  ingestSpans,
+  listRuns,
+  getRun,
+  querySpans,
+  getTraceTree,
+  aggregate,
+  type IngestSpan,
+} from "./db";
 import { traceEvents, type SpanEvent } from "./events";
 
 // Standalone HTTP server that runs alongside the mcp-use MCP server.
@@ -39,6 +47,61 @@ export function startHttpServer(port: number): void {
       console.error("[ingest] failed:", e);
       return c.json({ error: "ingest failed" }, 500);
     }
+  });
+
+  // Convenience read endpoints for the canvas (plain HTTP, not MCP).
+  // The Analyst Deep Agent uses the MCP tools for the same data.
+  app.get("/runs", (c) => {
+    const limit = Number(c.req.query("limit") ?? 50);
+    const status = c.req.query("status");
+    const runs = listRuns({
+      limit,
+      status: status as "running" | "done" | "failed" | undefined,
+    });
+    return c.json({ runs });
+  });
+
+  app.get("/runs/:run_id", (c) => {
+    const run = getRun(c.req.param("run_id"));
+    if (!run) return c.json({ error: "not found" }, 404);
+    const spans = querySpans({ run_id: run.run_id, limit: 5000 });
+    const root = spans.find((s) => /\.workflow\./.test(s.name)) ?? null;
+    return c.json({ run, workflow: root, spans });
+  });
+
+  app.get("/traces/:trace_id", (c) => {
+    const { root, spans } = getTraceTree(c.req.param("trace_id"));
+    return c.json({ trace_id: c.req.param("trace_id"), root, spans });
+  });
+
+  app.get("/spans", (c) => {
+    const run_id = c.req.query("run_id");
+    const trace_id = c.req.query("trace_id");
+    const name_prefix = c.req.query("name_prefix");
+    const service_name = c.req.query("service_name");
+    const status_code = c.req.query("status_code");
+    const limit = Number(c.req.query("limit") ?? 200);
+    const spans = querySpans({
+      run_id,
+      trace_id,
+      name_prefix,
+      service_name,
+      status_code,
+      limit,
+    });
+    return c.json({ spans });
+  });
+
+  app.get("/aggregate", (c) => {
+    const metric = (c.req.query("metric") ?? "duration") as "duration" | "count";
+    const group_by = (c.req.query("group_by") ?? "name") as
+      | "name"
+      | "service_name"
+      | "run_id"
+      | "status_code";
+    const run_id = c.req.query("run_id");
+    const aggregates = aggregate({ metric, group_by, run_id });
+    return c.json({ aggregates });
   });
 
   app.get("/traces/stream", (c) => {
