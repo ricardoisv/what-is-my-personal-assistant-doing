@@ -1,0 +1,203 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary "Threads drawer" [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img "CopilotKit" [ref=e6]
+          - button "Collapse threads drawer" [ref=e7] [cursor=pointer]:
+            - img [ref=e8]
+        - navigation "Primary" [ref=e10]:
+          - button "New chat" [ref=e11] [cursor=pointer]:
+            - img [ref=e12]
+            - generic [ref=e15]: New chat
+          - generic [ref=e16]:
+            - img [ref=e17]
+            - searchbox "Search threads" [ref=e20]
+        - navigation "Resources" [ref=e21]:
+          - link "About this Kit" [ref=e22] [cursor=pointer]:
+            - /url: /about
+            - img [ref=e23]
+            - generic [ref=e25]: About this Kit
+          - link "Tool surface" [ref=e26] [cursor=pointer]:
+            - /url: /showcase
+            - img [ref=e27]
+            - generic [ref=e30]: Tool surface
+          - link "Documentation" [ref=e31] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/
+            - img [ref=e32]
+            - generic [ref=e34]: Documentation
+            - img [ref=e35]
+          - link "Intelligence Platform" [ref=e39] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/learn/intelligence-platform
+            - img [ref=e40]
+            - generic [ref=e43]: Intelligence Platform
+            - img [ref=e44]
+          - link "Coding Agents" [ref=e48] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/coding-agents
+            - img [ref=e49]
+            - generic [ref=e53]: Coding Agents
+            - img [ref=e54]
+        - generic [ref=e58]:
+          - generic [ref=e59]: Threads
+          - generic [ref=e60]:
+            - button "Show archived threads" [ref=e61] [cursor=pointer]:
+              - img [ref=e62]
+            - button "New chat" [ref=e64] [cursor=pointer]:
+              - img [ref=e65]
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - 'button "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16 2m ago" [ref=e69] [cursor=pointer]':
+              - generic [ref=e70]:
+                - generic [ref=e71]: "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"
+                - generic "May 9, 2026, 5:59 PM" [ref=e72]: 2m ago
+            - generic:
+              - 'button "Archive {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+              - 'button "Delete {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+          - generic [ref=e73]:
+            - button "Untitled 5m ago" [ref=e74] [cursor=pointer]:
+              - generic [ref=e75]:
+                - generic [ref=e76]: Untitled
+                - generic "May 9, 2026, 5:56 PM" [ref=e77]: 5m ago
+            - generic:
+              - button "Archive Untitled":
+                - img
+              - button "Delete Untitled":
+                - img
+        - generic [ref=e78]:
+          - link "copilotkit.ai" [ref=e79] [cursor=pointer]:
+            - /url: https://www.copilotkit.ai/
+            - img [ref=e80]
+            - generic [ref=e81]: copilotkit.ai
+            - img [ref=e82]
+          - button "Switch to dark mode" [ref=e86] [cursor=pointer]:
+            - img [ref=e87]
+    - main [ref=e90]:
+      - generic [ref=e91]:
+        - generic [ref=e92]:
+          - heading "Trace Insights" [level=1] [ref=e93]
+          - paragraph [ref=e94]: What is my assistant doing?
+        - generic [ref=e95]: 6 runs · 0 spans loaded
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]: Status
+          - generic [ref=e99]: —
+        - generic [ref=e100]:
+          - generic [ref=e101]: Total time
+          - generic [ref=e102]: —
+        - generic [ref=e103]:
+          - generic [ref=e104]: Errors
+          - generic [ref=e105]: "0"
+        - generic [ref=e106]:
+          - generic [ref=e107]: Top tool
+          - generic [ref=e108]: —
+        - generic [ref=e109]:
+          - generic [ref=e110]: Tokens
+          - generic [ref=e111]: —
+        - generic [ref=e112]:
+          - generic [ref=e113]: Spans
+          - generic [ref=e114]: "0"
+      - generic [ref=e115]:
+        - complementary [ref=e116]:
+          - list [ref=e117]:
+            - listitem [ref=e118]:
+              - 'button "d91597d760 done ''speculative decoding'',), ''kwargs'': {}} 14s ago 164.5ms" [ref=e119]':
+                - generic [ref=e120]:
+                  - generic [ref=e121]: d91597d760
+                  - generic [ref=e122]: done
+                - generic [ref=e123]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e124]:
+                  - generic [ref=e125]: 14s ago
+                  - generic [ref=e126]: 164.5ms
+            - listitem [ref=e127]:
+              - 'button "a3c3ca00d7 done ''speculative decoding'',), ''kwargs'': {}} 8m ago 160.9ms" [ref=e128]':
+                - generic [ref=e129]:
+                  - generic [ref=e130]: a3c3ca00d7
+                  - generic [ref=e131]: done
+                - generic [ref=e132]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e133]:
+                  - generic [ref=e134]: 8m ago
+                  - generic [ref=e135]: 160.9ms
+            - listitem [ref=e136]:
+              - 'button "ee82311474 done ''speculative decoding'',), ''kwargs'': {}} 11m ago 164.5ms" [ref=e137]':
+                - generic [ref=e138]:
+                  - generic [ref=e139]: ee82311474
+                  - generic [ref=e140]: done
+                - generic [ref=e141]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e142]:
+                  - generic [ref=e143]: 11m ago
+                  - generic [ref=e144]: 164.5ms
+            - listitem [ref=e145]:
+              - 'button "6136659442 done ''speculative decoding'',), ''kwargs'': {}} 11m ago 163.1ms" [ref=e146]':
+                - generic [ref=e147]:
+                  - generic [ref=e148]: "6136659442"
+                  - generic [ref=e149]: done
+                - generic [ref=e150]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e151]:
+                  - generic [ref=e152]: 11m ago
+                  - generic [ref=e153]: 163.1ms
+            - listitem [ref=e154]:
+              - 'button "3ea42da25d done ''speculative decoding'',), ''kwargs'': {}} 39m ago 159.7ms" [ref=e155]':
+                - generic [ref=e156]:
+                  - generic [ref=e157]: 3ea42da25d
+                  - generic [ref=e158]: done
+                - generic [ref=e159]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e160]:
+                  - generic [ref=e161]: 39m ago
+                  - generic [ref=e162]: 159.7ms
+            - listitem [ref=e163]:
+              - 'button "9f0ea2bc49 done ''speculative decoding'',), ''kwargs'': {}} 43m ago 163.2ms" [ref=e164]':
+                - generic [ref=e165]:
+                  - generic [ref=e166]: 9f0ea2bc49
+                  - generic [ref=e167]: done
+                - generic [ref=e168]: "'speculative decoding',), 'kwargs': {}}"
+                - generic [ref=e169]:
+                  - generic [ref=e170]: 43m ago
+                  - generic [ref=e171]: 163.2ms
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - button "Timeline" [ref=e174]
+            - button "Flamegraph" [ref=e175]
+          - generic [ref=e176]:
+            - generic [ref=e178]: No spans on this trace.
+            - generic [ref=e180]: Pick a span on the timeline to see its attributes.
+        - complementary [ref=e181]:
+          - generic [ref=e182]: Pinned
+          - generic [ref=e183]: Pinned generative-UI components from the analyst will appear here.
+      - generic [ref=e184]:
+        - button "Close chat" [pressed] [ref=e185] [cursor=pointer]:
+          - generic:
+            - img
+          - generic:
+            - img
+        - complementary "Copilot chat sidebar" [ref=e186]:
+          - generic [ref=e187]:
+            - generic [ref=e189]:
+              - generic [ref=e191]: CopilotKit Chat
+              - button "Close" [ref=e193] [cursor=pointer]:
+                - img [ref=e194]
+            - generic [ref=e199]:
+              - heading "How can I help you today?" [level=1] [ref=e201]
+              - generic [ref=e203]:
+                - generic [ref=e204]:
+                  - generic:
+                    - button "What were the recent runs?" [ref=e205] [cursor=pointer]:
+                      - generic [ref=e206]: What were the recent runs?
+                    - button "Why was the last run slow?" [ref=e207] [cursor=pointer]:
+                      - generic [ref=e208]: Why was the last run slow?
+                    - button "Compare the last two runs" [ref=e209] [cursor=pointer]:
+                      - generic [ref=e210]: Compare the last two runs
+                    - button "Show me the failures" [ref=e211] [cursor=pointer]:
+                      - generic [ref=e212]: Show me the failures
+                - generic [ref=e216]:
+                  - generic [ref=e217]:
+                    - button [disabled]:
+                      - img
+                  - textbox "Type a message..." [ref=e219]
+                  - generic [ref=e221]:
+                    - button [disabled]:
+                      - img
+  - button "Open Next.js Dev Tools" [ref=e227] [cursor=pointer]:
+    - img [ref=e228]
+  - alert [ref=e231]

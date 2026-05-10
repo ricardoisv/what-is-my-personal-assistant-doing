@@ -9,7 +9,12 @@ import type { NextConfig } from "next";
 const here = path.dirname(fileURLToPath(import.meta.url));
 loadEnvConfig(path.resolve(here, "../.."));
 
-const BFF_URL = process.env.BFF_URL ?? "http://localhost:4000";
+// Default 4040 because port 4000 commonly collides with other local dev
+// servers (Vite/Nuxt frequently pick it as fallback). Override via .env if
+// you want the BFF on a different port.
+const BFF_URL = process.env.BFF_URL ?? "http://localhost:4040";
+
+console.log(`[next.config] BFF_URL=${BFF_URL}`);
 
 const nextConfig: NextConfig = {
   // Proxy CopilotKit runtime requests to the Hono BFF (apps/bff). We can't run

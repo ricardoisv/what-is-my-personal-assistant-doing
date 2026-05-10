@@ -305,22 +305,40 @@ function CanvasInner() {
   // ---- layout -------------------------------------------------------------
 
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
-      <header className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
+    // Hard-wired dark palette — the canvas is unreadable on the kit's default
+    // light theme (zinc-200 text on zinc-50 backgrounds). pr-[420px] keeps the
+    // floating CopilotSidebar from overlapping the right rail.
+    <main className="flex h-screen flex-col overflow-hidden bg-zinc-950 text-zinc-100 pr-[420px]">
+      <header className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/40 px-4 py-2.5">
         <div>
-          <h1 className="text-base font-semibold">{state.header.title}</h1>
-          <p className="text-xs text-zinc-500">{state.header.subtitle}</p>
+          <h1 className="text-sm font-semibold tracking-tight">
+            {state.header.title}
+          </h1>
+          <p className="text-[11px] text-zinc-500">{state.header.subtitle}</p>
         </div>
-        <div className="text-xs text-zinc-500">
-          {runs.length} runs · {traceSpans.length} spans loaded
+        <div className="flex items-center gap-3 text-[11px] text-zinc-400">
+          <span className="flex items-center gap-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            live
+          </span>
+          <span>
+            <span className="text-zinc-200">{runs.length}</span> runs ·{" "}
+            <span className="text-zinc-200">{traceSpans.length}</span> spans
+          </span>
         </div>
       </header>
 
       <MetricsStrip run={selectedRun} spans={traceSpans} />
 
-      <section className="grid min-h-0 flex-1 grid-cols-[280px_1fr_360px] divide-x divide-zinc-800">
+      <section className="grid min-h-0 flex-1 grid-cols-[300px_1fr_320px] divide-x divide-zinc-800">
         {/* Left rail */}
-        <aside className="min-h-0 overflow-y-auto bg-zinc-950/50">
+        <aside className="min-h-0 overflow-y-auto bg-zinc-950">
+          <div className="border-b border-zinc-800 px-3 py-2 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+            Runs
+          </div>
           <RunList
             runs={runs}
             selectedRunId={state.selectedRunId}
@@ -335,15 +353,15 @@ function CanvasInner() {
         </aside>
 
         {/* Center: TraceDetail */}
-        <section className="flex min-h-0 flex-col">
-          <div className="flex items-center gap-2 border-b border-zinc-800 px-3 py-2 text-xs">
+        <section className="flex min-h-0 flex-col bg-zinc-950">
+          <div className="flex items-center gap-1 border-b border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-xs">
             <button
               type="button"
               onClick={() => setView("timeline")}
-              className={`rounded px-2 py-1 ${
+              className={`rounded px-2.5 py-1 transition ${
                 view === "timeline"
                   ? "bg-zinc-800 text-zinc-100"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  : "text-zinc-500 hover:text-zinc-200"
               }`}
             >
               Timeline
@@ -351,10 +369,10 @@ function CanvasInner() {
             <button
               type="button"
               onClick={() => setView("flamegraph")}
-              className={`rounded px-2 py-1 ${
+              className={`rounded px-2.5 py-1 transition ${
                 view === "flamegraph"
                   ? "bg-zinc-800 text-zinc-100"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  : "text-zinc-500 hover:text-zinc-200"
               }`}
             >
               Flamegraph
@@ -388,8 +406,8 @@ function CanvasInner() {
         </section>
 
         {/* Right rail: pinned charts */}
-        <aside className="min-h-0 overflow-y-auto bg-zinc-950/50">
-          <div className="border-b border-zinc-800 px-3 py-2 text-[11px] uppercase tracking-wide text-zinc-500">
+        <aside className="min-h-0 overflow-y-auto bg-zinc-950">
+          <div className="border-b border-zinc-800 px-3 py-2 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
             Pinned
           </div>
           <PinnedCharts
