@@ -23,7 +23,7 @@ import { Timeline } from "@/components/traces/Timeline";
 import { Flamegraph } from "@/components/traces/Flamegraph";
 import { SpanDetail } from "@/components/traces/SpanDetail";
 import { MetricsStrip } from "@/components/traces/MetricsStrip";
-import { PinnedCharts } from "@/components/traces/PinnedCharts";
+import { DraggableChart } from "@/components/traces/DraggableChart";
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -254,8 +254,9 @@ function CanvasInner() {
   return (
     // Hard-wired dark palette — the canvas is unreadable on the kit's default
     // light theme (zinc-200 text on zinc-50 backgrounds). pr-[380px] keeps the
-    // floating CopilotSidebar (width 380 below) from overlapping the right rail.
-    <main className="flex h-screen flex-col overflow-hidden bg-zinc-950 text-zinc-100 pr-[380px]">
+    // floating CopilotSidebar (width 380 below) from overlapping. `relative`
+    // so the floating draggable-chart layer below positions against this main.
+    <main className="relative flex h-screen flex-col overflow-hidden bg-zinc-950 text-zinc-100 pr-[380px]">
       <header className="flex shrink-0 items-center justify-between gap-4 border-b border-zinc-800 bg-zinc-900/40 px-4 py-2.5">
         <div className="min-w-0">
           <h1 className="truncate text-sm font-semibold tracking-tight">
@@ -356,34 +357,39 @@ function CanvasInner() {
 
       </section>
 
-      {/* Pinned charts as a collapsible bottom strip — only when there are
-          components to show, so the canvas isn't cluttered when empty. */}
-      {state.pinnedCharts.length > 0 && (
-        <section className="min-h-0 max-h-[40vh] shrink-0 overflow-y-auto border-t border-zinc-800 bg-zinc-950">
-          <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/40 px-4 py-1.5">
-            <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-              Pinned · {state.pinnedCharts.length}
-            </span>
-            <button
-              type="button"
-              onClick={() =>
-                setState((prev) => ({ ...prev, pinnedCharts: [] }))
-              }
-              className="text-[10px] text-zinc-500 hover:text-zinc-200"
-            >
-              clear all
-            </button>
-          </div>
-          <PinnedCharts
-            pinned={state.pinnedCharts}
-            onUnpin={(id) =>
+      {/* Floating draggable chart layer — position:absolute over the canvas.
+          The wrapper itself is pointer-events-none so it doesn't block clicks
+          on the timeline / runs underneath; each card sets pointer-events-auto
+          so it remains interactive. Cards are positioned by index with a
+          cascade so a fresh pin doesn't land directly on top of a previous one.
+          Position + size are local to each card (DraggableChart owns them) —
+          we don't sync them through agent state to keep drag smooth. */}
+      <div className="pointer-events-none absolute inset-0 z-30">
+        {state.pinnedCharts.map((p, i) => (
+          <DraggableChart
+            key={p.id}
+            pinned={p}
+            initialPos={{ x: 280 + (i % 5) * 32, y: 140 + (i % 5) * 32 }}
+            onClose={() =>
               setState((prev) => ({
                 ...prev,
-                pinnedCharts: prev.pinnedCharts.filter((p) => p.id !== id),
+                pinnedCharts: prev.pinnedCharts.filter((q) => q.id !== p.id),
               }))
             }
           />
-        </section>
+        ))}
+      </div>
+
+      {state.pinnedCharts.length > 0 && (
+        <button
+          type="button"
+          onClick={() =>
+            setState((prev) => ({ ...prev, pinnedCharts: [] }))
+          }
+          className="absolute bottom-3 left-3 z-40 rounded-md border border-zinc-700 bg-zinc-900/90 px-2.5 py-1 text-[11px] text-zinc-400 shadow-lg shadow-black/30 hover:text-zinc-100"
+        >
+          clear {state.pinnedCharts.length} pinned
+        </button>
       )}
 
       <CopilotSidebar
