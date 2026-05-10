@@ -7,8 +7,10 @@ import {
   CopilotSidebar,
   useAgent,
   useConfigureSuggestions,
+  useDefaultRenderTool,
   useFrontendTool,
 } from "@copilotkit/react-core/v2";
+import { ToolFallbackCard } from "@/components/copilot/ToolFallbackCard";
 import { ThreadsDrawer } from "@/components/threads-drawer";
 import drawerStyles from "@/components/threads-drawer/threads-drawer.module.css";
 
@@ -52,26 +54,34 @@ function useLiveAgentState(): {
 function CanvasInner() {
   const { agent, state, setState } = useLiveAgentState();
 
+  // Render every backend-tool call (list_runs, aggregate, get_run, etc.)
+  // as a generic CopilotKit-branded card in the chat. This is the
+  // "controlled" GenUI fallback — without it, tool calls happen invisibly
+  // and the user only sees the final text reply.
+  useDefaultRenderTool({ render: (props) => <ToolFallbackCard {...props} /> });
+
   useConfigureSuggestions({
     available: "before-first-message",
     suggestions: [
       {
-        title: "What were the recent runs?",
-        message: "List the last 5 runs and tell me which one was slowest.",
+        title: "Show me a chart of slowest tools",
+        message:
+          "List the most recent run, aggregate spans by name (filter to name_prefix='wimad.tool.'), then call renderChart with kind='bar' to pin a bar chart of duration_ns by tool name. Use the chart's data prop with one entry per tool.",
       },
       {
-        title: "Why was the last run slow?",
+        title: "Focus the slowest run",
         message:
-          "Look at the most recent run, aggregate by tool name, and tell me what dominated wall time.",
+          "Find the slowest run in the last 5, call selectRun with its run_id to focus the canvas, then summarize what happened.",
       },
       {
         title: "Compare the last two runs",
-        message: "Compare the last two runs and tell me what regressed.",
+        message:
+          "Compare the last two runs with compare_runs, summarize the deltas, and pin a bar chart (renderChart kind='bar') of the absolute delta per tool name.",
       },
       {
-        title: "Show me the failures",
+        title: "Custom HTML viz",
         message:
-          "Find any spans with status_code=error in the last 10 runs and explain.",
+          "Pull the most recent trace and call renderHTML with a sandboxed HTML+SVG visualization of the span tree as a Sankey-like diagram (use inline styles, no external resources).",
       },
     ],
   });
