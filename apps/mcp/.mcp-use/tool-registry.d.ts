@@ -1,6 +1,6 @@
 // Auto-generated tool registry types - DO NOT EDIT MANUALLY
 // This file is regenerated whenever tools are added, removed, or updated during development
-// Generated at: 2026-05-09T23:14:20.449Z
+// Generated at: 2026-05-09T23:49:35.599Z
 
 declare module "mcp-use/react" {
   interface ToolRegistry {
@@ -18,6 +18,10 @@ declare module "mcp-use/react" {
     };
     "get_trace_tree": {
       input: { "trace_id": string };
+      output: Record<string, unknown>;
+    };
+    "judge_trace": {
+      input: { "trace_id": string; "rubric": "correctness" | "efficiency" | "safety" | "completeness" };
       output: Record<string, unknown>;
     };
     "list_runs": {

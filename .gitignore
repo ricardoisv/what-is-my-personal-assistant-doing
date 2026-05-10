@@ -38,3 +38,5 @@ apps/mcp/traces.sqlite-shm
 
 # Internal: starter-kit authoring docs, not for downstream hackathon teams
 COMPLIANCE.md
+apps/wimad/.playwright-cli/
+after-*.yaml
