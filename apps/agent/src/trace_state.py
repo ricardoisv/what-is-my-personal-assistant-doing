@@ -77,4 +77,13 @@ class TraceStateMiddleware(AgentMiddleware[TraceCanvasState, Any]):  # type: ign
     LangGraph merges middleware schemas, so inserting this alongside
     CopilotKitMiddleware adds the trace canvas fields. No hydration —
     the canvas is populated reactively from MCP queries + SSE live tail.
+
+    The `state_schema` class attribute MUST be set explicitly. The
+    `Generic[StateT, ContextT]` type parameter is a type hint only —
+    `AgentMiddleware.state_schema` defaults to `_DefaultAgentState`
+    unless the subclass overrides it. Without this line, every
+    Command(update={pinnedCharts: ...}) from a tool is silently
+    dropped because the schema doesn't declare those fields.
     """
+
+    state_schema = TraceCanvasState

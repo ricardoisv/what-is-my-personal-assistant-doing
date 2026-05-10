@@ -66,22 +66,22 @@ function CanvasInner() {
       {
         title: "Show me a chart of slowest tools",
         message:
-          "List the most recent run, aggregate spans by name (filter to name_prefix='wimad.tool.'), then call renderChart with kind='bar' to pin a bar chart of duration_ns by tool name. Use the chart's data prop with one entry per tool.",
+          "List the most recent run. Then call aggregate(group_by='name', run_id=<id>) and filter the rows to spans whose name starts with 'wimad.tool.'. Then call pin_chart(kind='a2ui', name='bar', props={'data': [{'label': <name>, 'value': <duration_ns/1e6>}, ...], 'unit': 'ms'}). Use the BACKEND pin_chart tool — not renderChart.",
       },
       {
         title: "Focus the slowest run",
         message:
-          "Find the slowest run in the last 5, call selectRun with its run_id to focus the canvas, then summarize what happened.",
+          "Find the slowest run in the last 5, call select_run with its run_id (BACKEND tool — not selectRun) to focus the canvas, then reply in one sentence.",
       },
       {
         title: "Compare the last two runs",
         message:
-          "Compare the last two runs with compare_runs, summarize the deltas, and pin a bar chart (renderChart kind='bar') of the absolute delta per tool name.",
+          "Compare the last two runs with compare_runs. Then call pin_chart(kind='a2ui', name='bar', props={'data': [{'label': <name>, 'value': abs(delta_total_ns)/1e6}, ...], 'unit': 'ms'}). Use the BACKEND pin_chart tool.",
       },
       {
         title: "Custom HTML viz",
         message:
-          "Pull the most recent trace and call renderHTML with a sandboxed HTML+SVG visualization of the span tree as a Sankey-like diagram (use inline styles, no external resources).",
+          "Pull the most recent trace via get_trace_tree. Then call pin_chart(kind='html', html=<sandboxed inline-styled HTML+SVG visualizing the span tree as nested boxes — width proportional to duration, indented by depth>). Use the BACKEND pin_chart tool.",
       },
     ],
   });
@@ -206,28 +206,16 @@ function CanvasInner() {
   }, [state.selectedTraceId]);
 
   // ---- frontend tools the analyst can call -------------------------------
-
-  useFrontendTool({
-    name: "selectRun",
-    description:
-      "Focus a run in the TraceDetail panel. Pass the run_id from list_runs.",
-    parameters: z.object({ run_id: z.string() }),
-    handler: async ({ run_id }) => {
-      setState((prev) => ({ ...prev, selectedRunId: run_id }));
-      return `Focused run ${run_id}`;
-    },
-  });
-
-  useFrontendTool({
-    name: "selectTrace",
-    description:
-      "Focus one trace in the Flamegraph/Timeline. Pass the trace_id from a span.",
-    parameters: z.object({ trace_id: z.string() }),
-    handler: async ({ trace_id }) => {
-      setState((prev) => ({ ...prev, selectedTraceId: trace_id }));
-      return `Focused trace ${trace_id}`;
-    },
-  });
+  //
+  // We deliberately register only `showTimeline` and `showFlamegraph` here
+  // (UI-only view toggles that don't need to persist in agent state). All
+  // canvas-state mutators (select_run, select_trace, pin_chart, clear_pinned)
+  // are BACKEND tools defined in apps/agent/src/trace_tools.py — they return
+  // Command(update={...}) which goes through LangGraph's state reducer and
+  // survives the next STATE_SNAPSHOT. Earlier we shipped frontend duplicates
+  // (renderChart / renderHTML / selectRun) that wrote only to React-local
+  // state and got overwritten on the next snapshot from the agent — that's
+  // why pinned charts vanished. Don't add them back.
 
   useFrontendTool({
     name: "showTimeline",
@@ -246,57 +234,6 @@ function CanvasInner() {
     handler: async () => {
       setView("flamegraph");
       return "Flamegraph view active";
-    },
-  });
-
-  useFrontendTool({
-    name: "renderChart",
-    description:
-      "Pin an A2UI declarative chart into the canvas free area. Pass `name` (chart type, e.g. 'bar', 'line', 'donut') and `props` (chart props). The free area persists across turns.",
-    parameters: z
-      .object({
-        name: z.string(),
-        props: z.record(z.string(), z.any()).optional(),
-      })
-      .passthrough(),
-    handler: async ({ name, props }) => {
-      const id = randomId();
-      setState((prev) => ({
-        ...prev,
-        pinnedCharts: [
-          ...prev.pinnedCharts,
-          { id, kind: "a2ui", name, props } as PinnedChart,
-        ],
-      }));
-      return `Pinned chart ${name} (id=${id}). Use clearPinned to remove.`;
-    },
-  });
-
-  useFrontendTool({
-    name: "renderHTML",
-    description:
-      "Pin an open-ended generative-UI HTML blob into the canvas free area (sandboxed iframe). Use only when neither a controlled component nor an A2UI chart fits.",
-    parameters: z.object({ html: z.string() }),
-    handler: async ({ html }) => {
-      const id = randomId();
-      setState((prev) => ({
-        ...prev,
-        pinnedCharts: [
-          ...prev.pinnedCharts,
-          { id, kind: "html", html } as PinnedChart,
-        ],
-      }));
-      return `Pinned HTML component (id=${id}).`;
-    },
-  });
-
-  useFrontendTool({
-    name: "clearPinned",
-    description: "Remove all pinned charts from the canvas free area.",
-    parameters: z.object({}),
-    handler: async () => {
-      setState((prev) => ({ ...prev, pinnedCharts: [] }));
-      return "Cleared.";
     },
   });
 

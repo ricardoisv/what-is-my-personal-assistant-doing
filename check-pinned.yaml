@@ -1,0 +1,270 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary "Threads drawer" [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img "CopilotKit" [ref=e6]
+          - button "Collapse threads drawer" [ref=e7] [cursor=pointer]:
+            - img [ref=e8]
+        - navigation "Primary" [ref=e10]:
+          - button "New chat" [ref=e11] [cursor=pointer]:
+            - img [ref=e12]
+            - generic [ref=e15]: New chat
+          - generic [ref=e16]:
+            - img [ref=e17]
+            - searchbox "Search threads" [ref=e20]
+        - navigation "Resources" [ref=e21]:
+          - link "About this Kit" [ref=e22] [cursor=pointer]:
+            - /url: /about
+            - img [ref=e23]
+            - generic [ref=e25]: About this Kit
+          - link "Tool surface" [ref=e26] [cursor=pointer]:
+            - /url: /showcase
+            - img [ref=e27]
+            - generic [ref=e30]: Tool surface
+          - link "Documentation" [ref=e31] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/
+            - img [ref=e32]
+            - generic [ref=e34]: Documentation
+            - img [ref=e35]
+          - link "Intelligence Platform" [ref=e39] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/learn/intelligence-platform
+            - img [ref=e40]
+            - generic [ref=e43]: Intelligence Platform
+            - img [ref=e44]
+          - link "Coding Agents" [ref=e48] [cursor=pointer]:
+            - /url: https://docs.copilotkit.ai/coding-agents
+            - img [ref=e49]
+            - generic [ref=e53]: Coding Agents
+            - img [ref=e54]
+        - generic [ref=e58]:
+          - generic [ref=e59]: Threads
+          - generic [ref=e60]:
+            - button "Show archived threads" [ref=e61] [cursor=pointer]:
+              - img [ref=e62]
+            - button "New chat" [ref=e64] [cursor=pointer]:
+              - img [ref=e65]
+        - generic [ref=e67]:
+          - generic [ref=e373]:
+            - button "Line Graph of Speeds Just now" [ref=e374] [cursor=pointer]:
+              - generic [ref=e375]:
+                - generic [ref=e376]: Line Graph of Speeds
+                - generic "May 9, 2026, 6:30 PM" [ref=e377]: Just now
+            - generic [ref=e378]:
+              - button "Archive Line Graph of Speeds" [ref=e379] [cursor=pointer]:
+                - img [ref=e380]
+              - button "Delete Line Graph of Speeds" [ref=e383] [cursor=pointer]:
+                - img [ref=e384]
+          - generic [ref=e387]:
+            - 'button "Trace Analysis: Tool Latency Breakdown 2m ago" [ref=e388] [cursor=pointer]':
+              - generic [ref=e389]:
+                - generic [ref=e390]: "Trace Analysis: Tool Latency Breakdown"
+                - generic "May 9, 2026, 6:28 PM" [ref=e391]: 2m ago
+            - generic:
+              - 'button "Archive Trace Analysis: Tool Latency Breakdown"':
+                - img
+              - 'button "Delete Trace Analysis: Tool Latency Breakdown"':
+                - img
+          - generic [ref=e392]:
+            - 'button "Trace Analysis: Tool Wall Time Distribution 2m ago" [ref=e393] [cursor=pointer]':
+              - generic [ref=e394]:
+                - generic [ref=e395]: "Trace Analysis: Tool Wall Time Distribution"
+                - generic "May 9, 2026, 6:28 PM" [ref=e396]: 2m ago
+            - generic:
+              - 'button "Archive Trace Analysis: Tool Wall Time Distribution"':
+                - img
+              - 'button "Delete Trace Analysis: Tool Wall Time Distribution"':
+                - img
+          - generic [ref=e254]:
+            - button "Pinned a2ui component id=fd4a05ef 4m ago" [active] [ref=e397] [cursor=pointer]:
+              - generic [ref=e256]:
+                - generic [ref=e257]: Pinned a2ui component id=fd4a05ef
+                - generic "May 9, 2026, 6:26 PM" [ref=e282]: 4m ago
+            - generic [ref=e337]:
+              - button "Archive Pinned a2ui component id=fd4a05ef" [ref=e338] [cursor=pointer]:
+                - img [ref=e339]
+              - button "Delete Pinned a2ui component id=fd4a05ef" [ref=e342] [cursor=pointer]:
+                - img [ref=e343]
+          - generic [ref=e68]:
+            - 'button "{\"aggregates\": {\"groupkey\": \"d91597d760a9449789eadac7fd6bcc79\", \"count\": 6, \"tot 8m ago" [ref=e398] [cursor=pointer]':
+              - generic [ref=e70]:
+                - generic [ref=e71]: "{\"aggregates\": {\"groupkey\": \"d91597d760a9449789eadac7fd6bcc79\", \"count\": 6, \"tot"
+                - generic "May 9, 2026, 6:22 PM" [ref=e72]: 8m ago
+            - generic:
+              - 'button "Archive {\"aggregates\": {\"groupkey\": \"d91597d760a9449789eadac7fd6bcc79\", \"count\": 6, \"tot"':
+                - img
+              - 'button "Delete {\"aggregates\": {\"groupkey\": \"d91597d760a9449789eadac7fd6bcc79\", \"count\": 6, \"tot"':
+                - img
+          - generic [ref=e73]:
+            - 'button "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16 13m ago" [ref=e399] [cursor=pointer]':
+              - generic [ref=e75]:
+                - generic [ref=e76]: "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"
+                - generic "May 9, 2026, 6:17 PM" [ref=e77]: 13m ago
+            - generic:
+              - 'button "Archive {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+              - 'button "Delete {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+          - generic [ref=e78]:
+            - 'button "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16 31m ago" [ref=e400] [cursor=pointer]':
+              - generic [ref=e80]:
+                - generic [ref=e81]: "{\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"
+                - generic "May 9, 2026, 5:59 PM" [ref=e82]: 31m ago
+            - generic:
+              - 'button "Archive {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+              - 'button "Delete {\"aggregates\": {\"groupkey\": \"wimad.workflow.research\", \"count\": 1, \"totalns\": 16"':
+                - img
+          - generic [ref=e83]:
+            - button "Untitled 34m ago" [ref=e401] [cursor=pointer]:
+              - generic [ref=e85]:
+                - generic [ref=e86]: Untitled
+                - generic "May 9, 2026, 5:56 PM" [ref=e87]: 34m ago
+            - generic:
+              - button "Archive Untitled":
+                - img
+              - button "Delete Untitled":
+                - img
+        - generic [ref=e88]:
+          - link "copilotkit.ai" [ref=e89] [cursor=pointer]:
+            - /url: https://www.copilotkit.ai/
+            - img [ref=e90]
+            - generic [ref=e91]: copilotkit.ai
+            - img [ref=e92]
+          - button "Switch to dark mode" [ref=e96] [cursor=pointer]:
+            - img [ref=e97]
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - heading "Trace Insights" [level=1] [ref=e103]
+          - paragraph [ref=e104]: What is my assistant doing?
+        - generic [ref=e105]:
+          - generic [ref=e106]: live
+          - generic [ref=e110]: 7 runs · 0 spans
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]: Status
+          - generic "—" [ref=e114]
+        - generic [ref=e115]:
+          - generic [ref=e116]: Total time
+          - generic "—" [ref=e117]
+        - generic [ref=e118]:
+          - generic [ref=e119]: Errors
+          - generic "0" [ref=e120]
+        - generic [ref=e121]:
+          - generic [ref=e122]: Top tool
+          - generic "—" [ref=e123]
+        - generic [ref=e124]:
+          - generic [ref=e125]: Tokens
+          - generic "—" [ref=e126]
+        - generic [ref=e127]:
+          - generic [ref=e128]: Spans
+          - generic "0" [ref=e129]
+      - generic [ref=e130]:
+        - complementary [ref=e131]:
+          - generic [ref=e132]: Runs
+          - list [ref=e133]:
+            - listitem [ref=e134]:
+              - button "096d18de10 done speculative decoding 7m ago 162.4ms" [ref=e402]:
+                - generic [ref=e136]:
+                  - generic [ref=e137]: 096d18de10
+                  - generic [ref=e138]: done
+                - generic [ref=e139]: speculative decoding
+                - generic [ref=e140]:
+                  - generic [ref=e141]: 7m ago
+                  - generic [ref=e142]: 162.4ms
+            - listitem [ref=e143]:
+              - button "d91597d760 done speculative decoding 30m ago 164.5ms" [ref=e403]:
+                - generic [ref=e145]:
+                  - generic [ref=e146]: d91597d760
+                  - generic [ref=e147]: done
+                - generic [ref=e148]: speculative decoding
+                - generic [ref=e149]:
+                  - generic [ref=e150]: 30m ago
+                  - generic [ref=e151]: 164.5ms
+            - listitem [ref=e152]:
+              - button "a3c3ca00d7 done speculative decoding 38m ago 160.9ms" [ref=e404]:
+                - generic [ref=e154]:
+                  - generic [ref=e155]: a3c3ca00d7
+                  - generic [ref=e156]: done
+                - generic [ref=e157]: speculative decoding
+                - generic [ref=e158]:
+                  - generic [ref=e159]: 38m ago
+                  - generic [ref=e160]: 160.9ms
+            - listitem [ref=e161]:
+              - button "ee82311474 done speculative decoding 41m ago 164.5ms" [ref=e405]:
+                - generic [ref=e163]:
+                  - generic [ref=e164]: ee82311474
+                  - generic [ref=e165]: done
+                - generic [ref=e166]: speculative decoding
+                - generic [ref=e167]:
+                  - generic [ref=e168]: 41m ago
+                  - generic [ref=e169]: 164.5ms
+            - listitem [ref=e170]:
+              - button "6136659442 done speculative decoding 41m ago 163.1ms" [ref=e406]:
+                - generic [ref=e172]:
+                  - generic [ref=e173]: "6136659442"
+                  - generic [ref=e174]: done
+                - generic [ref=e175]: speculative decoding
+                - generic [ref=e176]:
+                  - generic [ref=e177]: 41m ago
+                  - generic [ref=e178]: 163.1ms
+            - listitem [ref=e179]:
+              - button "3ea42da25d done speculative decoding 1h ago 159.7ms" [ref=e180]:
+                - generic [ref=e181]:
+                  - generic [ref=e182]: 3ea42da25d
+                  - generic [ref=e183]: done
+                - generic [ref=e184]: speculative decoding
+                - generic [ref=e185]:
+                  - generic [ref=e186]: 1h ago
+                  - generic [ref=e187]: 159.7ms
+            - listitem [ref=e188]:
+              - button "9f0ea2bc49 done speculative decoding 1h ago 163.2ms" [ref=e189]:
+                - generic [ref=e190]:
+                  - generic [ref=e191]: 9f0ea2bc49
+                  - generic [ref=e192]: done
+                - generic [ref=e193]: speculative decoding
+                - generic [ref=e194]:
+                  - generic [ref=e195]: 1h ago
+                  - generic [ref=e196]: 163.2ms
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - button "Timeline" [ref=e199]
+            - button "Flamegraph" [ref=e200]
+          - generic [ref=e201]:
+            - generic [ref=e203]: No spans on this trace.
+            - generic [ref=e205]: Pick a span on the timeline to see its attributes.
+      - generic [ref=e206]:
+        - button "Close chat" [pressed] [ref=e207] [cursor=pointer]:
+          - generic:
+            - img
+          - generic:
+            - img
+        - complementary "Copilot chat sidebar" [ref=e208]:
+          - generic [ref=e209]:
+            - generic [ref=e211]:
+              - generic [ref=e213]: CopilotKit Chat
+              - button "Close" [ref=e215] [cursor=pointer]:
+                - img [ref=e216]
+            - generic [ref=e220]:
+              - generic [ref=e356]:
+                - generic:
+                  - button "Show me a chart of slowest tools" [ref=e357] [cursor=pointer]:
+                    - generic [ref=e358]: Show me a chart of slowest tools
+                  - button "Focus the slowest run" [ref=e359] [cursor=pointer]:
+                    - generic [ref=e360]: Focus the slowest run
+                  - button "Compare the last two runs" [ref=e361] [cursor=pointer]:
+                    - generic [ref=e362]: Compare the last two runs
+                  - button "Custom HTML viz" [ref=e363] [cursor=pointer]:
+                    - generic [ref=e364]: Custom HTML viz
+              - generic [ref=e367]:
+                - generic [ref=e368]:
+                  - button [disabled]:
+                    - img
+                - textbox "Type a message..." [ref=e370]
+                - generic [ref=e372]:
+                  - button [disabled]:
+                    - img
+  - button "Open Next.js Dev Tools" [ref=e249] [cursor=pointer]:
+    - img [ref=e250]
+  - alert [ref=e253]
