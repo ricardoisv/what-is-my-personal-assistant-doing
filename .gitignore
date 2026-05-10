@@ -40,3 +40,6 @@ apps/mcp/traces.sqlite-shm
 COMPLIANCE.md
 apps/wimad/.playwright-cli/
 after-*.yaml
+.playwright-cli/
+e2e-load.yaml
+after-runs.yaml

@@ -40,7 +40,7 @@ export function Timeline({ spans, onSelectSpan, selectedSpanId }: Props) {
             key={s.span_id}
             type="button"
             onClick={() => onSelectSpan?.(s)}
-            className={`grid w-full grid-cols-[240px_1fr_64px] items-center gap-3 rounded-sm py-1 pl-1 pr-2 text-left transition ${
+            className={`grid w-full grid-cols-[minmax(0,160px)_minmax(0,1fr)_56px] items-center gap-2 rounded-sm py-1 pl-1 pr-2 text-left transition ${
               sel ? "bg-zinc-800" : "hover:bg-zinc-900"
             }`}
             title={s.name}
@@ -51,15 +51,19 @@ export function Timeline({ spans, onSelectSpan, selectedSpanId }: Props) {
             >
               {s.name}
             </span>
-            <span className="relative h-4 w-full overflow-hidden rounded-sm bg-zinc-900 ring-1 ring-zinc-800">
-              <span
+            {/* Track must be block, not span — span defaults to display:inline
+                and w-full is ignored on inline elements, collapsing the
+                container to 0 width and making the bar look like a tiny
+                rounded blob. */}
+            <div className="relative h-4 w-full overflow-hidden rounded-sm bg-zinc-900 ring-1 ring-zinc-800">
+              <div
                 className={`absolute top-0 bottom-0 rounded-sm ${color} shadow-sm`}
                 style={{
                   left: `${offsetPct}%`,
                   width: `max(${widthPct}%, 4px)`,
                 }}
               />
-            </span>
+            </div>
             <span className="text-right text-zinc-400">
               {formatNs(s.duration_ns)}
             </span>

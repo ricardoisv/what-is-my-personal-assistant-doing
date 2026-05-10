@@ -50,20 +50,23 @@ export function MetricsStrip({ run, spans }: Props) {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-b border-zinc-800 bg-zinc-900/30 px-4 py-2.5 md:grid-cols-3 lg:grid-cols-6">
+    <div className="flex items-center gap-x-6 gap-y-1.5 overflow-x-auto whitespace-nowrap border-b border-zinc-800 bg-zinc-900/30 px-4 py-2.5">
       {cells.map((c) => (
-        <div key={c.label} className="space-y-0.5">
-          <div className="text-[9px] font-medium uppercase tracking-wider text-zinc-500">
+        <div
+          key={c.label}
+          className="flex min-w-0 shrink-0 items-baseline gap-2"
+        >
+          <span className="text-[9px] font-medium uppercase tracking-wider text-zinc-500">
             {c.label}
-          </div>
-          <div
-            className={`truncate font-mono text-[12px] ${
+          </span>
+          <span
+            className={`min-w-0 truncate font-mono text-[12px] ${
               c.tone ?? "text-zinc-100"
             }`}
             title={c.value}
           >
             {c.value}
-          </div>
+          </span>
         </div>
       ))}
     </div>

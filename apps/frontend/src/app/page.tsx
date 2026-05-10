@@ -306,17 +306,19 @@ function CanvasInner() {
 
   return (
     // Hard-wired dark palette — the canvas is unreadable on the kit's default
-    // light theme (zinc-200 text on zinc-50 backgrounds). pr-[420px] keeps the
-    // floating CopilotSidebar from overlapping the right rail.
-    <main className="flex h-screen flex-col overflow-hidden bg-zinc-950 text-zinc-100 pr-[420px]">
-      <header className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/40 px-4 py-2.5">
-        <div>
-          <h1 className="text-sm font-semibold tracking-tight">
+    // light theme (zinc-200 text on zinc-50 backgrounds). pr-[380px] keeps the
+    // floating CopilotSidebar (width 380 below) from overlapping the right rail.
+    <main className="flex h-screen flex-col overflow-hidden bg-zinc-950 text-zinc-100 pr-[380px]">
+      <header className="flex shrink-0 items-center justify-between gap-4 border-b border-zinc-800 bg-zinc-900/40 px-4 py-2.5">
+        <div className="min-w-0">
+          <h1 className="truncate text-sm font-semibold tracking-tight">
             {state.header.title}
           </h1>
-          <p className="text-[11px] text-zinc-500">{state.header.subtitle}</p>
+          <p className="truncate text-[11px] text-zinc-500">
+            {state.header.subtitle}
+          </p>
         </div>
-        <div className="flex items-center gap-3 text-[11px] text-zinc-400">
+        <div className="flex shrink-0 items-center gap-3 text-[11px] text-zinc-400">
           <span className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
@@ -324,7 +326,7 @@ function CanvasInner() {
             </span>
             live
           </span>
-          <span>
+          <span className="font-mono">
             <span className="text-zinc-200">{runs.length}</span> runs ·{" "}
             <span className="text-zinc-200">{traceSpans.length}</span> spans
           </span>
@@ -333,7 +335,7 @@ function CanvasInner() {
 
       <MetricsStrip run={selectedRun} spans={traceSpans} />
 
-      <section className="grid min-h-0 flex-1 grid-cols-[300px_1fr_320px] divide-x divide-zinc-800">
+      <section className="grid min-h-0 flex-1 grid-cols-[240px_minmax(0,1fr)] divide-x divide-zinc-800">
         {/* Left rail */}
         <aside className="min-h-0 overflow-y-auto bg-zinc-950">
           <div className="border-b border-zinc-800 px-3 py-2 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
@@ -405,10 +407,25 @@ function CanvasInner() {
           </div>
         </section>
 
-        {/* Right rail: pinned charts */}
-        <aside className="min-h-0 overflow-y-auto bg-zinc-950">
-          <div className="border-b border-zinc-800 px-3 py-2 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-            Pinned
+      </section>
+
+      {/* Pinned charts as a collapsible bottom strip — only when there are
+          components to show, so the canvas isn't cluttered when empty. */}
+      {state.pinnedCharts.length > 0 && (
+        <section className="min-h-0 max-h-[40vh] shrink-0 overflow-y-auto border-t border-zinc-800 bg-zinc-950">
+          <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/40 px-4 py-1.5">
+            <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+              Pinned · {state.pinnedCharts.length}
+            </span>
+            <button
+              type="button"
+              onClick={() =>
+                setState((prev) => ({ ...prev, pinnedCharts: [] }))
+              }
+              className="text-[10px] text-zinc-500 hover:text-zinc-200"
+            >
+              clear all
+            </button>
           </div>
           <PinnedCharts
             pinned={state.pinnedCharts}
@@ -419,12 +436,12 @@ function CanvasInner() {
               }))
             }
           />
-        </aside>
-      </section>
+        </section>
+      )}
 
       <CopilotSidebar
         defaultOpen
-        width={420}
+        width={380}
         input={{ disclaimer: () => null, className: "pb-6" }}
       />
     </main>
